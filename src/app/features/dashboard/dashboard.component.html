@@ -1,0 +1,159 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="dashboard__header">
+    <div class="dashboard__header-left">
+      <h1 class="dashboard__title">
+        <span class="dashboard__title-icon">🔒</span>
+        SecureGate
+      </h1>
+      <p class="dashboard__subtitle">Panel de control</p>
+    </div>
+
+    <div class="dashboard__header-right">
+      <div class="dashboard__user-info">
+        <div class="dashboard__avatar">
+          {{ currentUser()?.username?.charAt(0)?.toUpperCase() }}
+        </div>
+        <div class="dashboard__user-details">
+          <span class="dashboard__username">{{ currentUser()?.username }}</span>
+          <div class="dashboard__roles">
+            <span
+              *ngFor="let role of currentUser()?.roles"
+              [class]="getRoleBadgeClass(role.name)">
+              {{ role.name }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn--logout" (click)="auth.logout()">
+        Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- Alerta de error -->
+  <div *ngIf="error()" class="alert alert--error">
+    ⚠️ {{ error() }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading()" class="loading">
+    <div class="loading__spinner"></div>
+    <p>Cargando información...</p>
+  </div>
+
+  <ng-container *ngIf="!loading()">
+
+    <!-- Bienvenida para rol user -->
+    <div *ngIf="!auth.hasAnyRole(['admin', 'manager'])" class="welcome-card">
+      <div class="welcome-card__icon">👋</div>
+      <h2>Bienvenido, {{ currentUser()?.username }}</h2>
+      <p>Tu cuenta está activa. Tienes acceso de usuario estándar al sistema.</p>
+      <div class="welcome-card__email">
+        <span>📧</span>
+        {{ currentUser()?.email }}
+      </div>
+    </div>
+
+    <!-- Estadísticas (admin y manager) -->
+    <ng-container *ngIf="auth.hasAnyRole(['admin', 'manager'])">
+
+      <h2 class="section-title">Resumen del sistema</h2>
+
+      <div class="stats-grid">
+
+        <div class="stat-card stat-card--blue">
+          <div class="stat-card__icon">👥</div>
+          <div class="stat-card__info">
+            <span class="stat-card__number">{{ totalUsers() }}</span>
+            <span class="stat-card__label">Usuarios totales</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--green">
+          <div class="stat-card__icon">✅</div>
+          <div class="stat-card__info">
+            <span class="stat-card__number">{{ activeUsers() }}</span>
+            <span class="stat-card__label">Usuarios activos</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card--red">
+          <div class="stat-card__icon">🚫</div>
+          <div class="stat-card__info">
+            <span class="stat-card__number">{{ totalUsers() - activeUsers() }}</span>
+            <span class="stat-card__label">Usuarios inactivos</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navegación rápida -->
+      <h2 class="section-title">Acceso rápido</h2>
+
+      <div class="nav-grid">
+
+        <a routerLink="/users" class="nav-card">
+          <div class="nav-card__icon">👤</div>
+          <div class="nav-card__info">
+            <span class="nav-card__title">Gestión de usuarios</span>
+            <span class="nav-card__desc">Ver, activar, asignar roles</span>
+          </div>
+          <span class="nav-card__arrow">→</span>
+        </a>
+
+        <a *ngIf="auth.hasRole('admin')"
+           routerLink="/audit-logs"
+           class="nav-card">
+          <div class="nav-card__icon">📋</div>
+          <div class="nav-card__info">
+            <span class="nav-card__title">Registros de auditoría</span>
+            <span class="nav-card__desc">Historial de actividad</span>
+          </div>
+          <span class="nav-card__arrow">→</span>
+        </a>
+
+      </div>
+
+      <!-- Actividad reciente (solo admin) -->
+      <ng-container *ngIf="auth.hasRole('admin') && recentLogs().length > 0">
+
+        <div class="section-header">
+          <h2 class="section-title">Actividad reciente</h2>
+          <a routerLink="/audit-logs" class="section-link">Ver todo →</a>
+        </div>
+
+        <div class="logs-table">
+          <div class="logs-table__header">
+            <span>Acción</span>
+            <span>Recurso</span>
+            <span>IP</span>
+            <span>Fecha</span>
+          </div>
+          <div
+            *ngFor="let log of recentLogs()"
+            class="logs-table__row">
+            <span class="logs-table__action">
+              {{ getActionIcon(log.action) }}
+              {{ log.action }}
+            </span>
+            <span class="logs-table__resource">
+              {{ log.resource ?? '—' }}
+            </span>
+            <span class="logs-table__ip">
+              {{ log.ip_address ?? '—' }}
+            </span>
+            <span class="logs-table__date">
+              {{ formatDate(log.created_at) }}
+            </span>
+          </div>
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+</div>
