@@ -1,0 +1,94 @@
+<div class="users-page">
+  <header class="users-page__header">
+    <div class="users-page__header-left">
+      <a routerLink="/dashboard" class="users-page__back">← Dashboard</a>
+      <h1 class="users-page__title">Gestión de usuarios</h1>
+    </div>
+  </header>
+
+  <div *ngIf="loading()" class="loading">
+    <div class="loading__spinner"></div>
+    <p>Cargando usuarios...</p>
+  </div>
+
+  <ng-container *ngIf="!loading()">
+    <div *ngIf="users().length === 0" class="empty-state">
+      <div class="empty-state__icon">👥</div>
+      <p>No hay usuarios registrados.</p>
+    </div>
+
+    <div *ngIf="users().length > 0" class="users-table-wrap">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users()" [class.inactive]="!u.is_active">
+            <td class="users-table__user">
+              <div class="users-table__avatar" [class.users-table__avatar--inactive]="!u.is_active">
+                {{ u.username.charAt(0).toUpperCase() }}
+              </div>
+              <span>{{ u.username }}</span>
+            </td>
+
+            <td class="users-table__email">{{ u.email }}</td>
+
+            <td class="users-table__roles">
+              <span *ngFor="let r of u.roles" [class]="getRoleBadgeClass(r.name)">
+                {{ r.name }}
+              </span>
+              <span *ngIf="u.roles.length === 0" class="text-muted">—</span>
+            </td>
+
+            <td>
+              <span
+                class="status-badge"
+                [class.status-badge--active]="u.is_active"
+                [class.status-badge--inactive]="!u.is_active"
+              >
+                {{ u.is_active ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+
+            <td class="users-table__actions">
+              <button class="action-btn action-btn--view" (click)="viewUser(u)" title="Ver detalle">
+                👁 Ver
+              </button>
+
+              <button
+                class="action-btn action-btn--role"
+                (click)="assignRole(u)"
+                title="Asignar rol"
+              >
+                🛡 Rol
+              </button>
+
+              <!-- ✅ Un solo botón que activa o desactiva según el estado -->
+              <!-- <button class="action-btn"
+                      [class.action-btn--success]="!u.is_active"
+                      [class.action-btn--danger]="u.is_active"
+                      (click)="toggleActivation(u)"
+                      [title]="u.is_active ? 'Desactivar usuario' : 'Activar usuario'">
+                {{ u.is_active ? '🚫 Desactivar' : '✅ Activar' }}
+              </button> -->
+
+              <button
+                class="action-btn action-btn--danger"
+                (click)="toggleActivation(u)"
+                [title]="u.is_active ? 'Desactivar usuario' : 'Activar usuario'"
+              >
+                {{ u.is_active ? '🚫 Desactivar' : '✅ Activar' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

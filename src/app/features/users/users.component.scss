@@ -1,0 +1,332 @@
+$primary: #1D9E75;
+$primary-dark: #0F6E56;
+$primary-light: #E1F5EE;
+$danger: #E24B4A;
+$danger-light: #FCEBEB;
+$blue: #378ADD;
+$blue-light: #E6F1FB;
+$text-primary: #2C2C2A;
+$text-secondary: #5F5E5A;
+$text-muted: #888780;
+$bg: #F8F9FA;
+$border: #E8E6DF;
+$white: #FFFFFF;
+$radius: 12px;
+$radius-sm: 8px;
+
+.users-page {
+  min-height: 100vh;
+  background: $bg;
+  padding-bottom: 48px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: $text-primary;
+}
+
+// ─── Header ───────────────────────────────────────────────────
+.users-page__header {
+  background: $white;
+  border-bottom: 1px solid $border;
+  padding: 20px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.users-page__back {
+  font-size: 13px;
+  color: $text-muted;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.users-page__title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: $text-primary;
+}
+
+// ─── Loading / Empty ──────────────────────────────────────────
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+  color: $text-muted;
+  gap: 16px;
+
+  &__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid $border;
+    border-top: 3px solid $primary;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 32px;
+  color: $text-muted;
+
+  &__icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ─── Tabla ────────────────────────────────────────────────────
+.users-table-wrap {
+  margin: 24px 32px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius;
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead tr {
+    background: $bg;
+    border-bottom: 1px solid $border;
+  }
+
+  th {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: left;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $border;
+    transition: background 0.15s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #fafafa;
+    }
+
+    &.inactive {
+
+      td:nth-child(1) span,
+      // nombre
+      td:nth-child(2),
+      // email
+      td:nth-child(3),
+      // roles
+      td:nth-child(4) {
+        // estado
+        opacity: 0.55;
+      }
+    }
+  }
+
+  td {
+    padding: 14px 16px;
+    vertical-align: middle;
+  }
+}
+
+// ─── Celda usuario ────────────────────────────────────────────
+.users-table__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.users-table__avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: $primary;
+  color: $white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.users-table__email {
+  color: $text-secondary;
+  font-size: 13px;
+}
+
+.users-table__roles {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+// ─── Badges ───────────────────────────────────────────────────
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+
+  &--admin {
+    background: #534AB7;
+    color: #EEEDFE;
+  }
+
+  &--manager {
+    background: #0F6E56;
+    color: #E1F5EE;
+  }
+
+  &--user {
+    background: #444441;
+    color: #F1EFE8;
+  }
+}
+
+.text-muted {
+  color: $text-muted;
+  font-size: 13px;
+}
+
+// ─── Estado ───────────────────────────────────────────────────
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &--active {
+    background: $primary-light;
+    color: $primary-dark;
+  }
+
+  &--inactive {
+    background: $danger-light;
+    color: $danger;
+  }
+}
+
+// ─── Botones de acción ────────────────────────────────────────
+.users-table__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border-radius: $radius-sm;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &--view {
+    background: $blue-light;
+    color: $blue;
+    border-color: lighten($blue, 25%);
+
+    &:hover:not(:disabled) {
+      background: darken($blue-light, 4%);
+    }
+  }
+
+  &--role {
+    background: $primary-light;
+    color: $primary-dark;
+    border-color: lighten($primary, 30%);
+
+    &:hover:not(:disabled) {
+      background: darken($primary-light, 4%);
+    }
+  }
+
+  &--danger {
+    background: $danger-light;
+    color: $danger;
+    border-color: lighten($danger, 25%);
+
+    &:hover:not(:disabled) {
+      background: darken($danger-light, 4%);
+    }
+  }
+
+  &--success {
+    background: $danger-light;
+    color: $danger;
+    border-color: lighten($danger, 25%);
+
+    &:hover:not(:disabled) {
+      background: darken($danger-light, 4%);
+    }
+  }
+}
+
+// ─── Responsive ───────────────────────────────────────────────
+@media (max-width: 768px) {
+  .users-page__header {
+    padding: 16px;
+  }
+
+  .users-table-wrap {
+    margin: 16px;
+  }
+
+  .users-table {
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      display: none;
+    }
+
+    // ocultar email en móvil
+  }
+
+  .users-table__actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

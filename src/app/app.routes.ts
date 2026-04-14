@@ -19,5 +19,10 @@ export const routes: Routes = [
       import('./features/users/users.component')
         .then(m => m.UsersComponent)
   },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./features/register/register.component').then(m => m.RegisterComponent)
+  },
   { path: '**', redirectTo: 'login' }
 ];

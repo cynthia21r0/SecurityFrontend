@@ -3,30 +3,46 @@ import { CommonModule }       from '@angular/common';
 import { FormsModule }        from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService }        from '../../core/services/auth.service';
+import Swal                   from 'sweetalert2';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  selector:    'app-login',
+  standalone:  true,
+  imports:     [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrl:    './login.component.scss'
 })
 export class LoginComponent {
   email    = '';
   password = '';
-  error    = '';
   loading  = false;
+  showPass = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  onSubmit() {
-    this.error   = '';
+  onSubmit(): void {
     this.loading = true;
+
     this.auth.login(this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => {
+        Swal.fire({
+          icon:              'success',
+          title:             '¡Bienvenido!',
+          text:              'Sesión iniciada correctamente.',
+          timer:             1500,
+          showConfirmButton: false,
+          timerProgressBar:  true
+        }).then(() => this.router.navigate(['/dashboard']));
+      },
       error: err => {
-        this.error   = err.error?.error ?? 'Error al iniciar sesión';
         this.loading = false;
+        Swal.fire({
+          icon:             'error',
+          title:            'Error al iniciar sesión',
+          text:             err.error?.error ?? 'Credenciales inválidas',
+          confirmButtonText:'Intentar de nuevo',
+          confirmButtonColor:'#1a1a2e'
+        });
       }
     });
   }
