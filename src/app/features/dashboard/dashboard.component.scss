@@ -1,551 +1,702 @@
 * {
   box-sizing: border-box;
-  margin:     0;
-  padding:    0;
+  margin: 0;
+  padding: 0;
 }
 
 // ─── Variables ────────────────────────────────────────────────
-$blue:          #010f2d;
-$blue-dark:     #1240A8;
-$blue-mid:      #2563EB;
-$blue-light:    #EBF2FF;
-$blue-soft:     #DBEAFE;
-$success:       #16A34A;
+$blue: #010f2d;
+$blue-dark: #1240A8;
+$blue-mid: #2563EB;
+$blue-light: #EBF2FF;
+$blue-soft: #DBEAFE;
+$success: #16A34A;
 $success-light: #DCFCE7;
-$danger:        #DC2626;
-$danger-light:  #FEE2E2;
-$warning:       #D97706;
+$danger: #DC2626;
+$danger-light: #FEE2E2;
+$warning: #D97706;
 $warning-light: #FEF3C7;
-$text-primary:  #0F172A;
-$text-secondary:#475569;
-$text-muted:    #94A3B8;
-$bg:            #F1F5F9;
-$border:        #E2E8F0;
-$white:         #FFFFFF;
-$radius:        12px;
-$radius-sm:     8px;
+$text-primary: #0F172A;
+$text-secondary: #475569;
+$text-muted: #94A3B8;
+$bg: #F1F5F9;
+$border: #E2E8F0;
+$white: #FFFFFF;
+$radius: 12px;
+$radius-sm: 8px;
 
 // ─── Layout base ──────────────────────────────────────────────
 .dashboard {
-  min-height:  100vh;
-  background:  $bg;
-  padding:     0 0 56px;
+  min-height: 100vh;
+  background: $bg;
+  padding: 0 0 56px;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  color:       $text-primary;
+  color: $text-primary;
 }
 
 // ─── Header ───────────────────────────────────────────────────
 .dashboard__header {
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  background:      $blue;
-  padding:         0 32px;
-  height:          64px;
-  position:        sticky;
-  top:             0;
-  z-index:         100;
-  box-shadow:      0 2px 8px rgba(26, 86, 219, 0.3);
+  background: $blue;
+  padding: 0 32px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.3);
 }
 
 .dashboard__header-left {
-  display:     flex;
+  display: flex;
   align-items: center;
-  gap:         10px;
+  gap: 10px;
 }
 
 .dashboard__logo-icon {
-  width:            36px;
-  height:           36px;
-  background:       rgba(255,255,255,0.15);
-  border-radius:    $radius-sm;
-  display:          flex;
-  align-items:      center;
-  justify-content:  center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  svg { width: 20px; height: 20px; fill: $white; }
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $white;
+  }
 }
 
 .dashboard__title {
-  font-size:   20px;
+  font-size: 20px;
   font-weight: 700;
-  color:       $white;
-  margin:      0;
+  color: $white;
+  margin: 0;
   letter-spacing: -0.3px;
 }
 
 .dashboard__subtitle {
   font-size: 12px;
-  color:     rgba(255,255,255,0.6);
-  margin:    0;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
   font-weight: 400;
 }
 
 .dashboard__header-right {
-  display:     flex;
+  display: flex;
   align-items: center;
-  gap:         16px;
+  gap: 16px;
 }
 
 .dashboard__user-info {
-  display:     flex;
+  display: flex;
   align-items: center;
-  gap:         10px;
+  gap: 10px;
 }
 
 .dashboard__avatar {
-  width:           36px;
-  height:          36px;
-  border-radius:   50%;
-  background:      rgba(255,255,255,0.2);
-  border:          2px solid rgba(255,255,255,0.4);
-  color:           $white;
-  font-size:       14px;
-  font-weight:     700;
-  display:         flex;
-  align-items:     center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: $white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-shrink:     0;
+  flex-shrink: 0;
 }
 
 .dashboard__user-details {
-  display:        flex;
+  display: flex;
   flex-direction: column;
-  gap:            3px;
+  gap: 3px;
 }
 
 .dashboard__username {
-  font-size:   13px;
+  font-size: 13px;
   font-weight: 600;
-  color:       $white;
+  color: $white;
   line-height: 1;
 }
 
 .dashboard__roles {
   display: flex;
-  gap:     4px;
+  gap: 4px;
 }
 
 // ─── Badges ───────────────────────────────────────────────────
 .badge {
-  display:        inline-block;
-  padding:        2px 8px;
-  border-radius:  4px;
-  font-size:      10px;
-  font-weight:    700;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 
   &--admin {
-    background: rgba(255,255,255,0.25);
-    color:      $white;
+    background: rgba(255, 255, 255, 0.25);
+    color: $white;
   }
+
   &--manager {
-    background: rgba(255,255,255,0.18);
-    color:      rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.9);
   }
+
   &--user {
-    background: rgba(255,255,255,0.12);
-    color:      rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 
 // ─── Botón logout ─────────────────────────────────────────────
 .btn {
-  padding:       8px 16px;
+  padding: 8px 16px;
   border-radius: $radius-sm;
-  font-size:     13px;
-  font-weight:   600;
-  cursor:        pointer;
-  border:        none;
-  transition:    background 0.2s, transform 0.1s;
-  &:active { transform: scale(0.97); }
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, transform 0.1s;
+
+  &:active {
+    transform: scale(0.97);
+  }
 
   &--logout {
-    background: rgba(255,255,255,0.12);
-    color:      $white;
-    border:     1px solid rgba(255,255,255,0.25);
+    background: rgba(255, 255, 255, 0.12);
+    color: $white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
 
-    &:hover { background: rgba(255,255,255,0.22); }
+    &:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
   }
 }
 
 // ─── Loading ──────────────────────────────────────────────────
 .loading {
-  display:         flex;
-  flex-direction:  column;
-  align-items:     center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding:         80px 32px;
-  color:           $text-muted;
-  gap:             14px;
+  padding: 80px 32px;
+  color: $text-muted;
+  gap: 14px;
 
   &__spinner {
-    width:         32px;
-    height:        32px;
-    border:        3px solid $border;
-    border-top:    3px solid $blue;
+    width: 32px;
+    height: 32px;
+    border: 3px solid $border;
+    border-top: 3px solid $blue;
     border-radius: 50%;
-    animation:     spin 0.75s linear infinite;
-  }
-
-  p { font-size: 14px; margin: 0; }
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-// ─── Contenido ────────────────────────────────────────────────
-.dashboard__body {
-  padding:   0 32px;
-}
-
-// ─── Page heading ─────────────────────────────────────────────
-.page-heading {
-  padding:      28px 0 6px;
-  border-bottom: 1px solid $border;
-  margin-bottom: 24px;
-
-  h2 {
-    font-size:   22px;
-    font-weight: 700;
-    color:       $text-primary;
-    margin:      0 0 4px;
+    animation: spin 0.75s linear infinite;
   }
 
   p {
     font-size: 14px;
-    color:     $text-muted;
-    margin:    0;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ─── Contenido ────────────────────────────────────────────────
+.dashboard__body {
+  padding: 0 32px;
+}
+
+// ─── Page heading ─────────────────────────────────────────────
+.page-heading {
+  padding: 28px 0 6px;
+  border-bottom: 1px solid $border;
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 4px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-muted;
+    margin: 0;
   }
 }
 
 // ─── Section label ────────────────────────────────────────────
 .section-label {
-  font-size:      11px;
-  font-weight:    700;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color:          $text-muted;
-  margin:         0 0 12px;
+  color: $text-muted;
+  margin: 0 0 12px;
 }
 
 // ─── Stats grid ───────────────────────────────────────────────
 .stats-grid {
-  display:               grid;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap:                   16px;
-  margin-bottom:         28px;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
 .stat-card {
-  background:    $white;
+  background: $white;
   border-radius: $radius;
-  border:        1px solid $border;
-  padding:       20px 24px;
-  display:       flex;
-  align-items:   center;
-  gap:           16px;
-  transition:    box-shadow 0.2s, transform 0.15s;
+  border: 1px solid $border;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow 0.2s, transform 0.15s;
 
   &:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-    transform:  translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    transform: translateY(-1px);
   }
 
   &__icon-wrap {
-    width:           48px;
-    height:          48px;
-    border-radius:   10px;
-    display:         flex;
-    align-items:     center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    flex-shrink:     0;
+    flex-shrink: 0;
 
-    svg { width: 22px; height: 22px; }
+    svg {
+      width: 22px;
+      height: 22px;
+    }
   }
 
   &__info {
-    display:        flex;
+    display: flex;
     flex-direction: column;
-    gap:            3px;
+    gap: 3px;
   }
 
   &__number {
-    font-size:   30px;
+    font-size: 30px;
     font-weight: 700;
     line-height: 1;
   }
 
   &__label {
     font-size: 13px;
-    color:     $text-muted;
+    color: $text-muted;
   }
 
   &--blue {
     border-left: 4px solid $blue;
-    .stat-card__icon-wrap { background: $blue-light; }
-    .stat-card__icon-wrap svg { fill: $blue; }
-    .stat-card__number { color: $blue; }
+
+    .stat-card__icon-wrap {
+      background: $blue-light;
+    }
+
+    .stat-card__icon-wrap svg {
+      fill: $blue;
+    }
+
+    .stat-card__number {
+      color: $blue;
+    }
   }
 
   &--green {
     border-left: 4px solid $success;
-    .stat-card__icon-wrap { background: $success-light; }
-    .stat-card__icon-wrap svg { fill: $success; }
-    .stat-card__number { color: $success; }
+
+    .stat-card__icon-wrap {
+      background: $success-light;
+    }
+
+    .stat-card__icon-wrap svg {
+      fill: $success;
+    }
+
+    .stat-card__number {
+      color: $success;
+    }
   }
 
   &--red {
     border-left: 4px solid $danger;
-    .stat-card__icon-wrap { background: $danger-light; }
-    .stat-card__icon-wrap svg { fill: $danger; }
-    .stat-card__number { color: $danger; }
+
+    .stat-card__icon-wrap {
+      background: $danger-light;
+    }
+
+    .stat-card__icon-wrap svg {
+      fill: $danger;
+    }
+
+    .stat-card__number {
+      color: $danger;
+    }
   }
 }
 
 // ─── Nav grid ─────────────────────────────────────────────────
 .nav-grid {
-  display:               grid;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap:                   14px;
-  margin-bottom:         28px;
+  gap: 14px;
+  margin-bottom: 28px;
 }
 
 .nav-card {
-  background:      $white;
-  border:          1px solid $border;
-  border-radius:   $radius;
-  padding:         18px 20px;
-  display:         flex;
-  align-items:     center;
-  gap:             14px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   text-decoration: none;
-  color:           $text-primary;
-  cursor:          pointer;
-  font-family:     inherit;
-  text-align:      left;
-  width:           100%;
-  transition:      box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  color: $text-primary;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
 
   &:hover {
-    box-shadow:   0 4px 20px rgba(26,86,219,0.1);
+    box-shadow: 0 4px 20px rgba(26, 86, 219, 0.1);
     border-color: $blue;
-    transform:    translateY(-2px);
+    transform: translateY(-2px);
 
-    .nav-card__arrow { color: $blue; transform: translateX(3px); }
-    .nav-card__icon-wrap { background: $blue-light; }
-    .nav-card__icon-wrap svg { fill: $blue; }
+    .nav-card__arrow {
+      color: $blue;
+      transform: translateX(3px);
+    }
+
+    .nav-card__icon-wrap {
+      background: $blue-light;
+    }
+
+    .nav-card__icon-wrap svg {
+      fill: $blue;
+    }
   }
 
   &__icon-wrap {
-    width:           44px;
-    height:          44px;
-    background:      $bg;
-    border-radius:   $radius-sm;
-    display:         flex;
-    align-items:     center;
+    width: 44px;
+    height: 44px;
+    background: $bg;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    flex-shrink:     0;
-    transition:      background 0.2s;
+    flex-shrink: 0;
+    transition: background 0.2s;
 
-    svg { width: 20px; height: 20px; fill: $text-secondary; transition: fill 0.2s; }
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: $text-secondary;
+      transition: fill 0.2s;
+    }
   }
 
   &__info {
-    display:        flex;
+    display: flex;
     flex-direction: column;
-    gap:            3px;
-    flex:           1;
+    gap: 3px;
+    flex: 1;
   }
 
   &__title {
-    font-size:   14px;
+    font-size: 14px;
     font-weight: 600;
-    color:       $text-primary;
+    color: $text-primary;
   }
 
   &__desc {
     font-size: 12px;
-    color:     $text-muted;
+    color: $text-muted;
   }
 
   &__arrow {
-    font-size:  16px;
-    color:      $text-muted;
+    font-size: 16px;
+    color: $text-muted;
     transition: color 0.2s, transform 0.2s;
   }
 }
 
 // ─── Logs table ───────────────────────────────────────────────
 .logs-table-wrap {
-  background:    $white;
-  border:        1px solid $border;
+  background: $white;
+  border: 1px solid $border;
   border-radius: $radius;
-  overflow:      hidden;
+  overflow: hidden;
   margin-bottom: 4px;
 }
 
 .logs-table {
   &__header {
-    display:               grid;
+    display: grid;
     grid-template-columns: 2fr 1fr 1.2fr 1.6fr 0.5fr;
-    padding:               10px 20px;
-    background:            $bg;
-    border-bottom:         1px solid $border;
-    font-size:             11px;
-    font-weight:           700;
-    color:                 $text-muted;
-    text-transform:        uppercase;
-    letter-spacing:        0.6px;
+    padding: 10px 20px;
+    background: $bg;
+    border-bottom: 1px solid $border;
+    font-size: 11px;
+    font-weight: 700;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
   }
 
   &__row {
-    display:               grid;
+    display: grid;
     grid-template-columns: 2fr 1fr 1.2fr 1.6fr 0.5fr;
-    padding:               13px 20px;
-    font-size:             13px;
-    border-bottom:         1px solid $border;
-    align-items:           center;
-    cursor:                pointer;
-    transition:            background 0.12s;
+    padding: 13px 20px;
+    font-size: 13px;
+    border-bottom: 1px solid $border;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.12s;
 
-    &:last-child { border-bottom: none; }
-    &:hover      { background: $blue-light; }
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $blue-light;
+    }
   }
 
   &__action {
     font-weight: 500;
-    display:     flex;
-    gap:         8px;
+    display: flex;
+    gap: 8px;
     align-items: center;
-    color:       $text-primary;
+    color: $text-primary;
   }
 
   &__resource {
     font-size: 13px;
-    color:     $text-secondary;
+    color: $text-secondary;
   }
 
   &__ip {
     font-family: 'Courier New', monospace;
-    font-size:   12px;
-    color:       $text-muted;
+    font-size: 12px;
+    color: $text-muted;
   }
 
   &__date {
     font-size: 12px;
-    color:     $text-muted;
+    color: $text-muted;
   }
 
   &__detail-btn {
-    font-size:   12px;
+    font-size: 12px;
     font-weight: 600;
-    color:       $blue;
-    text-align:  right;
+    color: $blue;
+    text-align: right;
   }
 }
 
 // ─── Section header row ───────────────────────────────────────
 .section-header {
-  display:         flex;
-  align-items:     center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom:   12px;
+  margin-bottom: 12px;
 }
 
 .btn-link {
-  background:  none;
-  border:      none;
-  cursor:      pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
   font-family: inherit;
-  font-size:   13px;
+  font-size: 13px;
   font-weight: 600;
-  color:       $blue;
-  padding:     0;
+  color: $blue;
+  padding: 0;
 
-  &:hover { text-decoration: underline; }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 // ─── Welcome card ─────────────────────────────────────────────
 .welcome-card {
-  background:    $white;
-  border:        1px solid $border;
+  background: $white;
+  border: 1px solid $border;
   border-radius: $radius;
-  padding:       56px 40px;
-  text-align:    center;
-  margin-top:    32px;
+  padding: 56px 40px;
+  text-align: center;
+  margin-top: 32px;
 
   &__icon-wrap {
-    width:           64px;
-    height:          64px;
-    background:      $blue-light;
-    border-radius:   16px;
-    display:         flex;
-    align-items:     center;
+    width: 64px;
+    height: 64px;
+    background: $blue-light;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin:          0 auto 20px;
+    margin: 0 auto 20px;
 
-    svg { width: 32px; height: 32px; fill: $blue; }
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: $blue;
+    }
   }
 
   h2 {
-    font-size:   22px;
+    font-size: 22px;
     font-weight: 700;
-    margin:      0 0 10px;
-    color:       $text-primary;
+    margin: 0 0 10px;
+    color: $text-primary;
   }
 
   p {
-    font-size:    14px;
-    color:        $text-secondary;
-    margin:       0 0 24px;
-    max-width:    360px;
-    margin-left:  auto;
+    font-size: 14px;
+    color: $text-secondary;
+    margin: 0 0 24px;
+    max-width: 360px;
+    margin-left: auto;
     margin-right: auto;
   }
 
   &__email {
-    display:         inline-flex;
-    align-items:     center;
-    gap:             8px;
-    background:      $blue-light;
-    color:           $blue-dark;
-    padding:         10px 20px;
-    border-radius:   $radius-sm;
-    font-size:       14px;
-    font-weight:     600;
-    border:          1px solid $blue-soft;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: $blue-light;
+    color: $blue-dark;
+    padding: 10px 20px;
+    border-radius: $radius-sm;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid $blue-soft;
 
-    svg { width: 16px; height: 16px; fill: $blue; }
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: $blue;
+    }
   }
 }
 
 // ─── Responsive ───────────────────────────────────────────────
 @media (max-width: 768px) {
   .dashboard__header {
-    padding:    0 16px;
-    height:     auto;
-    padding:    14px 16px;
-    flex-wrap:  wrap;
-    gap:        12px;
+    padding: 0 16px;
+    height: auto;
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .dashboard__header-right {
-    width:           100%;
+    width: 100%;
     justify-content: space-between;
   }
 
-  .dashboard__body { padding: 0 16px; }
+  .dashboard__body {
+    padding: 0 16px;
+  }
 
-  .stats-grid { grid-template-columns: 1fr; }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 
-  .nav-grid   { grid-template-columns: 1fr; }
+  .nav-grid {
+    grid-template-columns: 1fr;
+  }
 
   .logs-table__header,
   .logs-table__row {
     grid-template-columns: 2fr 1fr 0.5fr;
 
     span:nth-child(3),
-    span:nth-child(4) { display: none; }
+    span:nth-child(4) {
+      display: none;
+    }
+  }
+}
+
+.btn--profile {
+  background: rgba(255, 255, 255, 0.12);
+  color: $white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
+
+.btn--primary {
+  background: $blue;
+  color: $white;
+
+  &:hover {
+    background: $blue-dark;
+  }
+}
+
+
+// ─── Avatar clickeable ────────────────────────────────────────
+.dashboard__avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: opacity 0.2s, box-shadow 0.2s;
+
+  &:hover .dashboard__avatar {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+    opacity: 0.9;
+  }
+}
+
+// ─── Botón icono (logout) ─────────────────────────────────────
+.btn--icon {
+  width: 38px;
+  height: 38px;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+  padding: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: $white;
+  }
+
+  &:hover {
+    background: rgba(220, 38, 38, 0.3);
+    border-color: rgba(220, 38, 38, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }

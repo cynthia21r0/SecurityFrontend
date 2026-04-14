@@ -1,12 +1,11 @@
 <div class="dashboard">
-
   <!-- ── Header ─────────────────────────────────────────────── -->
   <header class="dashboard__header">
     <div class="dashboard__header-left">
       <div class="dashboard__logo-icon">
         <!-- Shield icon -->
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z"/>
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6l-9-4z" />
         </svg>
       </div>
       <div>
@@ -17,21 +16,31 @@
 
     <div class="dashboard__header-right">
       <div class="dashboard__user-info">
-        <div class="dashboard__avatar">
-          {{ currentUser()?.username?.charAt(0)?.toUpperCase() }}
-        </div>
+        <!-- Avatar clickeable → abre perfil -->
+        <button class="dashboard__avatar-btn" (click)="openMyProfile()" title="Mi perfil">
+          <div class="dashboard__avatar">
+            {{ currentUser()?.username?.charAt(0)?.toUpperCase() }}
+          </div>
+        </button>
+
         <div class="dashboard__user-details">
           <span class="dashboard__username">{{ currentUser()?.username }}</span>
           <div class="dashboard__roles">
-            <span *ngFor="let role of currentUser()?.roles"
-                  [class]="getRoleBadgeClass(role.name)">
+            <span *ngFor="let role of currentUser()?.roles" [class]="getRoleBadgeClass(role.name)">
               {{ role.name }}
             </span>
           </div>
         </div>
       </div>
-      <button class="btn btn--logout" (click)="confirmLogout()">
-        Cerrar sesión
+
+      <!-- Icono logout -->
+      <button class="btn btn--icon" (click)="confirmLogout()" title="Cerrar sesión">
+        <!-- Power / logout icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
+          />
+        </svg>
       </button>
     </div>
   </header>
@@ -44,20 +53,23 @@
 
   <ng-container *ngIf="!loading()">
     <div class="dashboard__body">
-
       <!-- ── Bienvenida (rol user) ──────────────────────────── -->
       <div *ngIf="!auth.hasAnyRole(['admin', 'manager'])" class="welcome-card">
         <div class="welcome-card__icon-wrap">
           <!-- User icon -->
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            <path
+              d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+            />
           </svg>
         </div>
         <h2>Bienvenido, {{ currentUser()?.username }}</h2>
         <p>Tu cuenta está activa. Tienes acceso de usuario estándar al sistema.</p>
         <div class="welcome-card__email">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            <path
+              d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+            />
           </svg>
           {{ currentUser()?.email }}
         </div>
@@ -65,7 +77,6 @@
 
       <!-- ── Admin / Manager ────────────────────────────────── -->
       <ng-container *ngIf="auth.hasAnyRole(['admin', 'manager'])">
-
         <!-- Page heading -->
         <div class="page-heading">
           <h2>Bienvenido, {{ currentUser()?.username }}</h2>
@@ -75,12 +86,13 @@
         <!-- Stats -->
         <p class="section-label">Resumen del sistema</p>
         <div class="stats-grid">
-
           <div class="stat-card stat-card--blue">
             <div class="stat-card__icon-wrap">
               <!-- Users icon -->
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                <path
+                  d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                />
               </svg>
             </div>
             <div class="stat-card__info">
@@ -93,7 +105,9 @@
             <div class="stat-card__icon-wrap">
               <!-- Check circle icon -->
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                />
               </svg>
             </div>
             <div class="stat-card__info">
@@ -106,7 +120,9 @@
             <div class="stat-card__icon-wrap">
               <!-- Block icon -->
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/>
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"
+                />
               </svg>
             </div>
             <div class="stat-card__info">
@@ -114,17 +130,17 @@
               <span class="stat-card__label">Usuarios inactivos</span>
             </div>
           </div>
-
         </div>
 
         <!-- Acceso rápido -->
         <p class="section-label">Acceso rápido</p>
         <div class="nav-grid">
-
           <button (click)="openUsers()" class="nav-card">
             <div class="nav-card__icon-wrap">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                <path
+                  d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                />
               </svg>
             </div>
             <div class="nav-card__info">
@@ -134,11 +150,12 @@
             <span class="nav-card__arrow">→</span>
           </button>
 
-          <button *ngIf="auth.hasRole('admin')"
-                  (click)="openAuditLogs()" class="nav-card">
+          <button *ngIf="auth.hasRole('admin')" (click)="openAuditLogs()" class="nav-card">
             <div class="nav-card__icon-wrap">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                <path
+                  d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+                />
               </svg>
             </div>
             <div class="nav-card__info">
@@ -148,12 +165,31 @@
             <span class="nav-card__arrow">→</span>
           </button>
 
+          <!-- Card 3: NUEVA — agrega aquí -->
+          <button
+            *ngIf="auth.hasAnyRole(['admin', 'manager'])"
+            (click)="openManagerPanel()"
+            class="nav-card"
+          >
+            <div class="nav-card__icon-wrap">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"
+                />
+              </svg>
+            </div>
+            <div class="nav-card__info">
+              <span class="nav-card__title">Reportes y estadísticas</span>
+              <span class="nav-card__desc">Actividad, filtros y exportación</span>
+            </div>
+            <span class="nav-card__arrow">→</span>
+          </button>
         </div>
 
         <!-- Actividad reciente -->
         <ng-container *ngIf="auth.hasRole('admin') && recentLogs().length > 0">
           <div class="section-header">
-            <p class="section-label" style="margin:0">Actividad reciente</p>
+            <p class="section-label" style="margin: 0">Actividad reciente</p>
             <button (click)="openAuditLogs()" class="btn-link">Ver todo →</button>
           </div>
 
@@ -165,9 +201,11 @@
               <span>Fecha</span>
               <span></span>
             </div>
-            <div *ngFor="let log of recentLogs()"
-                 class="logs-table__row"
-                 (click)="showLogDetail(log)">
+            <div
+              *ngFor="let log of recentLogs()"
+              class="logs-table__row"
+              (click)="showLogDetail(log)"
+            >
               <span class="logs-table__action">
                 {{ getActionIcon(log.action) }} {{ log.action }}
               </span>
@@ -178,9 +216,7 @@
             </div>
           </div>
         </ng-container>
-
       </ng-container>
     </div>
   </ng-container>
-
 </div>
